@@ -1,51 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Rewards Redeemed</title>
+    <title>Generate QR Code</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.0/build/qrcode.min.js"></script>
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            background-color: #D32F2F; /* Red background */
-            color: white;
-            font-family: 'Arial', sans-serif;
+        body {
             text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            padding-top: 50px;
+            font-family: Arial, sans-serif;
         }
-
-        .reward-message {
-            font-size: 4em; /* Large text size */
-            animation: fadeIn 2s, pulse 1s infinite;
-            text-shadow: 2px 2px 4px #000000; /* Text shadow for better readability */
+        input, button {
+            font-size: 1em;
+            padding: 10px;
+            margin: 5px;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        #qrcode {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="reward-message" id="rewardMessage"></div>
-    <script>
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const points = urlParams.get('points');
-            const roundedPoints = Math.ceil(parseFloat(points));
-            const totalPoints = Math.floor(Math.random() * 1000) + 1;
+    <h2>World Food Trucks - QR Code Generator</h2>
+    <input type="number" id="amount" placeholder="Enter amount" step="0.01">
+    <button onclick="generateQRCode()">Generate QR Code</button>
+    <div id="qrcode"></div>
 
-            document.getElementById('rewardMessage').innerHTML = 
-                roundedPoints + ' Reward Points Redeemed!<br>Your total points are now ' + totalPoints + ' points.';
-        };
+    <script>
+        function generateQRCode() {
+            var amount = document.getElementById('amount').value;
+            var qrcodeContainer = document.getElementById('qrcode');
+            qrcodeContainer.innerHTML = ''; // Clear previous QR code
+            if (amount) {
+                QRCode.toCanvas(amount, { width: 200 }, function (error, canvas) {
+                    if (error) console.error(error);
+                    qrcodeContainer.appendChild(canvas);
+                });
+            }
+        }
     </script>
 </body>
 </html>
