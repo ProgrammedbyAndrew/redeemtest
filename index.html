@@ -1,24 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Food Truck Rewards</title>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.0/build/qrcode.min.js"></script>
+    <title>World Food Trucks - Points Redemption</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #D32F2F; /* Bright red background */
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .input-field {
+            font-size: 2em; /* Large text */
+            margin: 20px;
+            padding: 10px;
+            border-radius: 15px; /* Rounded corners */
+            border: none;
+            text-align: center;
+        }
+
+        #dollar, #cents {
+            width: 100px; /* Adjust width as needed */
+        }
+
+        #submit {
+            font-size: 1.5em;
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            background-color: white;
+            color: #D32F2F;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1>Enter Reward Amount</h1>
-    <input type="text" id="amountInput" placeholder="$0.00">
-    <button onclick="generateQRCode()">Generate QR Code</button>
+    <h2>Enter Reward Amount</h2>
+    <input type="number" id="dollar" class="input-field" placeholder="$" min="0">
+    <input type="number" id="cents" class="input-field" placeholder="¢" min="0" max="99">
+    <button id="submit" onclick="generateQRCode()">Generate QR Code</button>
+
+    <!-- QR Code display area -->
     <div id="qrcode"></div>
 
     <script>
+        document.getElementById('dollar').addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                document.getElementById('cents').focus();
+            }
+        });
+
         function generateQRCode() {
-            var amount = document.getElementById('amountInput').value;
-            var qrCodeContainer = document.getElementById('qrcode');
-            qrCodeContainer.innerHTML = '';
-            QRCode.toCanvas(amount, { width: 200 }, function (error, canvas) {
-                if (error) console.error(error);
-                qrCodeContainer.appendChild(canvas);
-            });
+            // Function to generate QR code
+            // Add your QR code generation logic here
         }
     </script>
 </body>
