@@ -42,16 +42,16 @@
         function generateQRCode() {
             var dollars = document.getElementById('dollars').value;
             var cents = document.getElementById('cents').value;
-            var amount = parseFloat(dollars) + parseFloat(cents || 0);
+            var amount = dollars + '.' + (cents.padStart(2, '0'));
             var qrcodeContainer = document.getElementById('qrcode');
             qrcodeContainer.innerHTML = ''; // Clear previous QR code
-            if (!isNaN(amount) && amount > 0) {
-                QRCode.toCanvas(amount.toString(), { width: 200 }, function (error, canvas) {
+            if (!isNaN(parseFloat(amount)) && parseFloat(amount) > 0) {
+                QRCode.toCanvas(amount, { width: 200 }, function (error, canvas) {
                     if (error) console.error(error);
                     qrcodeContainer.appendChild(canvas);
                 });
             } else {
-                alert("Please enter a valid amount");
+                alert("Please enter a valid amount in the format dollars.cents");
             }
         }
 
