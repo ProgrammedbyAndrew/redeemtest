@@ -1,62 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>World Food Trucks - Points Redemption</title>
+    <title>Rewards Redeemed</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
-            background-color: #D32F2F; /* Bright red background */
+            background-color: #D32F2F; /* Red background */
             color: white;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .input-field {
-            font-size: 2em; /* Large text */
-            margin: 20px;
-            padding: 10px;
-            border-radius: 15px; /* Rounded corners */
-            border: none;
-            text-align: center;
+        .reward-message {
+            font-size: 4em; /* Large text size */
+            animation: fadeIn 2s, pulse 1s infinite;
+            text-shadow: 2px 2px 4px #000000; /* Text shadow for better readability */
         }
 
-        #dollar, #cents {
-            width: 100px; /* Adjust width as needed */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        #submit {
-            font-size: 1.5em;
-            padding: 10px 20px;
-            border-radius: 10px;
-            border: none;
-            background-color: white;
-            color: #D32F2F;
-            cursor: pointer;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
     </style>
 </head>
 <body>
-    <h2>Enter Reward Amount</h2>
-    <input type="number" id="dollar" class="input-field" placeholder="$" min="0">
-    <input type="number" id="cents" class="input-field" placeholder="¢" min="0" max="99">
-    <button id="submit" onclick="generateQRCode()">Generate QR Code</button>
-
-    <!-- QR Code display area -->
-    <div id="qrcode"></div>
-
+    <div class="reward-message" id="rewardMessage"></div>
     <script>
-        document.getElementById('dollar').addEventListener('keyup', function(event) {
-            if (event.key === 'Enter') {
-                document.getElementById('cents').focus();
-            }
-        });
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const points = urlParams.get('points');
+            const roundedPoints = Math.ceil(parseFloat(points));
+            const totalPoints = Math.floor(Math.random() * 1000) + 1;
 
-        function generateQRCode() {
-            // Function to generate QR code
-            // Add your QR code generation logic here
-        }
+            document.getElementById('rewardMessage').innerHTML = 
+                roundedPoints + ' Reward Points Redeemed!<br>Your total points are now ' + totalPoints + ' points.';
+        };
     </script>
 </body>
 </html>
